@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Register</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}    
+
+    <form method="post" action="{{ url_for('register') }}">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" required>
+
+        <label for="captcha">Captcha:</label>
+        <input type="text" name="captcha" required>
+        <img id="captcha-image" src="{{ captcha_base64 }}" alt="Captcha Image" onclick="refreshCaptcha()">
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+
+    <script>
+    function refreshCaptcha() {
+        var captchaImage = document.getElementById('captcha-image');
+        fetch("{{ url_for('refresh_captcha') }}").then(response => response.text()).then(text => captchaImage.src=text).catch(error => console.error(error));
+    }
+    </script>
+</body>
+</html>
+
