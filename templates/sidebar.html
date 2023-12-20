@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>左右布局页面</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    #container {
+      display: flex;
+      height: 100%;
+    }
+
+    /* 侧边栏: 页面 */
+    #sidebar {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      background-color: #333;
+      color: #fff;
+      transition: width 0.1s;
+      overflow-y: auto;
+    }
+    /* 侧边栏: 收缩按钮 */
+    #sidebar-toggle {
+        width: 20px;
+        background-color: transparent;
+        color: #fff;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    #toggle-btn {
+      cursor: pointer;
+      background-color: transparent;
+      color: rgba(128, 128, 128, 0.5);
+      border: none;
+      outline: none;
+    }
+
+    /* 主页面 */
+    #content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+  </style>
+
+</head>
+
+
+<body>
+  <div id="container">
+    <!-- 侧边栏内容 -->
+    <div id="sidebar">
+      <ul>
+        <li><a href="#">导航项1</a></li>
+        <li><a href="#">导航项2</a></li>
+        <li><a href="#">导航项3</a></li>
+      </ul>
+    </div>
+
+    <!-- 侧边栏收缩按钮 -->
+    <div id="sidebar-toggle">
+        <button id="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+
+    <!-- 主页面 -->
+    <div id="content">
+      <h1>工作区内容</h1>
+      <p>这是一个简单的左右布局页面示例。</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      var sidebar = document.getElementById('sidebar');
+      var toggleBtn = document.getElementById('toggle-btn');
+      if (sidebar.clientWidth === 0 || sidebar.clientWidth === '0px' || sidebar.clientWidth === '') {
+        sidebar.style.width = '200px';
+        toggleBtn.innerHTML = '☰';
+      } else {
+        sidebar.style.width = '0px';
+        toggleBtn.innerHTML = '☰';
+      }
+    }
+  </script>
+</body>
+</html>
+
