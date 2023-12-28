@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>左右布局页面</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
     }
     #container {
+      /* 弹性布局
+      1. 整个container的高度为100vh, 且不能上下左右滚动
+      2. container分为三列：侧边栏、侧边栏toggle和内容页；三者都继承100vh的高度
+      3. 侧边栏和侧边栏toggle都继承不能上下左右滚动，但内容页面可以滚动(不继承)
+      4. 这样，内容页面在滚动的时候，不影响侧边栏和toggle
+      5. 同时，由于container是弹性布局，toggle点击时，只需修改侧边栏和toggle的width，不用改动内容页
+      */
       display: flex;
-      height: 100%;
+      height: 100vh;
+      overflow: hidden;
     }
 
     /* 侧边栏: 页面 */
@@ -24,14 +30,11 @@
       background-color: #333;
       color: #fff;
       transition: width 0.1s;
-      overflow-y: auto;
     }
     /* 侧边栏: 收缩按钮 */
     #sidebar-toggle {
         width: 20px;
         background-color: transparent;
-        color: #fff;
-        overflow: hidden;
 
         display: flex;
         flex-direction: row;
@@ -49,7 +52,7 @@
     /* 主页面 */
     #content {
       flex: 1;
-      overflow-y: auto;
+      overflow: auto;
       padding: 20px;
     }
   </style>
